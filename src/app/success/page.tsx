@@ -1,11 +1,11 @@
 'use client'
 
 import Link from "next/link";
-import React, {useState, useEffect, Suspense } from 'react';
+import React, { useEffect} from 'react';
 
 const Success = ()=>{
 
-    const [data,setData] = useState('')
+   
 
  useEffect(()=>{
 
@@ -21,7 +21,7 @@ const Success = ()=>{
         }
         console.log('answer',answer)
         const dt = await answer.json()
-        setData(await dt.output)
+        
         console.log('data',dt)
      }
         fetchData()

@@ -18,6 +18,11 @@ export default function Home() {
 
 
 <div className='h-fit w-fit  md:w-[600px] flex flex-col justify-start items-center mt-5'>
+
+  <div className='flex flex-col justify-center items-center mb-5 p-4 bg-white rounded-lg shadow-lg xl:w-full w-[400px] '>
+    <h1 className='text-2xl font-bold text-gray-800 mb-4'>Business Viability Checker for Lagos Areas</h1>
+    <p className='text-gray-600 mb-6'>Enter any Lagos area name to instantly assess its business potential. Results are fetched via our automated backend and sent directly to your email.</p>
+  </div>
       
       <form className='flex flex-col  gap-4 p-4 bg-white rounded-lg shadow-2xl'action={formAction}>
         <div

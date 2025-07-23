@@ -34,12 +34,8 @@ const Success = ()=>{
             <h1 className="text-2xl font-bold text-green-600 mb-4">Success!</h1>
             <p className="text-gray-700 mb-6">Your form has been successfully submitted.</p>
             <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <h2 className="text-lg font-semibold text-blue-300">Response Data:</h2>
-              <Suspense fallback={<div className="text-gray-500">Loading...</div>}>
-                <pre className="text-sm text-gray-600 whitespace-pre-wrap">{data}</pre>
-              </Suspense>
-              </div>
             <Link href="/" className="text-blue-500 hover:underline">Go back to home</Link>
+            </div>
           </div>
         </div>
     )

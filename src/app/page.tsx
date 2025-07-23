@@ -74,7 +74,7 @@ export default function Home() {
             className='capitalize cursor-pointer md:w-[400px] bg-blue-500 text-white p-5 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out disabled:bg-blue-200'
             disabled={isPending}
           >
-            Add Class
+            Add Location
           </button>
         </div>
       </form>

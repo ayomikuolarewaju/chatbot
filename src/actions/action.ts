@@ -1,5 +1,7 @@
 "use server"
-import { redirect } from "next/navigation"
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+// import { NextResponse } from 'next/server'
 
   export type FormState = {
   error: SubErrors
@@ -51,5 +53,14 @@ import { redirect } from "next/navigation"
     console.error('Fetch error:', error);
    }
     console.log('Form submitted successfully');
+
+    const cookieStore = await cookies()
+    
+    cookieStore.set('formSuccess', 'true', {
+    httpOnly: true,
+    path: '/',
+    maxAge: 600, 
+  })
+
      return redirect('/success')
   }

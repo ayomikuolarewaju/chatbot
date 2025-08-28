@@ -2,7 +2,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Groq from 'groq-sdk';
-
+import { prisma } from "@/actions/db";
 
   export type FormState = {
   error: SubErrors
@@ -39,14 +39,22 @@ import Groq from 'groq-sdk';
        return{error}
     }
   
+   
    try {
 
      const res = await client.chat.completions.create({
         messages: [{ role: 'user', content: ` ${name}. ${location}. write a short business description of ${location}` }],
         model: 'llama3-8b-8192',
         });
-
-         console.log(res.choices[0].message.content);
+        await prisma.user.create({
+          data: {
+            name,
+            email,
+            location,
+            message: res.choices[0].message.content
+          }
+        })
+         
     
    } catch (error) {
     console.error('Fetch error:', error);
@@ -59,7 +67,9 @@ import Groq from 'groq-sdk';
     httpOnly: true,
     path: '/',
     maxAge: 600, 
-  })
+  },
+  
+)
 
-     return redirect('/success')
+     return redirect('/success?name=name')
   }

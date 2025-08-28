@@ -2,27 +2,26 @@
 
 import Link from "next/link";
 import React, { useEffect} from 'react';
+import {prisma} from "@/actions/db";
+import { useRouter } from "next/router";
+
 
 const Success = ()=>{
-
-   
-
+ 
+  const query = useRouter;
  useEffect(()=>{
 
      const fetchData = async ()=>{
-        const answer = await fetch('https://almaroof.app.n8n.cloud/webhook/31d994cf-4cd0-447f-93f4-fbe98b629252',{
-     method: 'GET',
-     headers: {
-    'Content-Type': 'application/json'
-    }
-  })
+        const answer = await prisma.user.findOne({
+          where: { name: query.name },
+        })
         if(!answer.ok){
           console.log('Failed to fetch data')
         }
-        console.log('answer',answer)
+        console.log(answer)
         const dt = await answer.json()
         
-        console.log('data',dt)
+        console.log(dt)
      }
         fetchData()
         

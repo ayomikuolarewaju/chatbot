@@ -71,5 +71,5 @@ import { prisma } from "@/actions/db";
   
 )
 
-     return redirect('/success?name=name')
+     return redirect(`/success?name=${name}`)
   }

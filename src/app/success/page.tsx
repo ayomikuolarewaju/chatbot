@@ -3,17 +3,19 @@
 import Link from "next/link";
 import React, { useEffect} from 'react';
 import {prisma} from "@/actions/db";
-import { useRouter } from "next/router";
-
+import {useRouter}  from "next/navigation"
 
 const Success = ()=>{
  
-  const query = useRouter;
+  const query = useRouter();
+
+  console.log(query)
+
  useEffect(()=>{
 
      const fetchData = async ()=>{
         const answer = await prisma.user.findOne({
-          where: { name: query.name },
+          where: { name: query },
         })
         if(!answer.ok){
           console.log('Failed to fetch data')
@@ -25,7 +27,7 @@ const Success = ()=>{
      }
         fetchData()
         
- },[])
+ },[query])
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-gray-100">

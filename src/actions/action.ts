@@ -3,11 +3,6 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Groq from 'groq-sdk';
 
-const client = new Groq({
-  apiKey: process.env['GROQ_API_KEY'], // This is the default and can be omitted
-});
-
-
 
   export type FormState = {
   error: SubErrors
@@ -26,7 +21,7 @@ const client = new Groq({
     const location = formdata.get('location') as string
 
     const client = new Groq({
-      apiKey: process.env['GROQ_API_KEY'], // This is the default and can be omitted
+      apiKey: process.env.GROQ_API_KEY, // This is the default and can be omitted
    });
 
     const error:SubErrors ={}
@@ -47,7 +42,7 @@ const client = new Groq({
    try {
 
      const res = await client.chat.completions.create({
-        messages: [{ role: 'user', content: 'Explain the importance of low latency LLMs' }],
+        messages: [{ role: 'user', content: ` ${name}. ${location}. write a short business description of ${location}` }],
         model: 'llama3-8b-8192',
         });
 

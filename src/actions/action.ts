@@ -1,7 +1,13 @@
 "use server"
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-// import { NextResponse } from 'next/server'
+import Groq from 'groq-sdk';
+
+const client = new Groq({
+  apiKey: process.env['GROQ_API_KEY'], // This is the default and can be omitted
+});
+
+
 
   export type FormState = {
   error: SubErrors
@@ -36,18 +42,12 @@ import { redirect } from 'next/navigation'
   
    try {
 
-     const res = await fetch('https://almaroof.app.n8n.cloud/webhook/31d994cf-4cd0-447f-93f4-fbe98b629252', {
-     method: 'POST',
-     headers: {
-    'Content-Type': 'application/json'
-    },
-       body: JSON.stringify({ name, email, location })
-    });
+     const res = await client.chat.completions.create({
+        messages: [{ role: 'user', content: 'Explain the importance of low latency LLMs' }],
+        model: 'llama3-8b-8192',
+        });
 
-    if(!res.ok){
-      const errorData = await res.json()
-      return {error:errorData}
-    }
+         console.log(res.choices[0].message.content);
     
    } catch (error) {
     console.error('Fetch error:', error);

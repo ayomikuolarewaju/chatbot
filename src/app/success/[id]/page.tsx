@@ -1,40 +1,26 @@
 'use client'
 
 import Link from "next/link";
-import React, { useEffect} from 'react';
-import {prisma} from "@/actions/db";
-import {useSearchParams}  from "next/navigation";
+import React, { useEffect, useState} from 'react';
+import { getUser } from "@/actions/action";
 
 
 
-const Success = ()=>{
+
+const Success = ({ params }: { params: { id: string } })=>{
  
 
-  const [search] = useSearchParams();
-
-  console.log(search[1])
-
+  const [userD,setUserD] = useState([])
+  console.log(params.id)
+  
 
  useEffect(()=>{
+      const dt = getUser(params.id).then(res => res.json())
+      .then(data => setUserD(data));
+       console.log(dt)
+},[params.id])
 
-     const fetchData = async ()=>{
-      
-        const answer = await prisma.user.findOne({
-      where: {
-        name: search[1],
-      },
-    });
-        if(!answer.ok){
-          console.log('Failed to fetch data')
-        }
-        console.log(answer)
-        const dt = await answer.json()
-        
-        console.log(dt)
-     }
-        fetchData()
-        
- },[search])
+console.log(userD)
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-gray-100">

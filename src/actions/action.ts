@@ -39,14 +39,11 @@ import { prisma } from "@/actions/db";
        return{error}
     }
   
-   
-   try {
-
      const res = await client.chat.completions.create({
         messages: [{ role: 'user', content: ` ${name}. ${location}. write a short business description of ${location}` }],
         model: 'llama3-8b-8192',
         });
-        await prisma.user.create({
+        const data = await prisma.user.create({
           data: {
             name,
             email,
@@ -56,9 +53,7 @@ import { prisma } from "@/actions/db";
         })
          
     
-   } catch (error) {
-    console.error('Fetch error:', error);
-   }
+
     console.log('Form submitted successfully');
 
     const cookieStore = await cookies()
@@ -69,5 +64,20 @@ import { prisma } from "@/actions/db";
     maxAge: 600, 
   });
 
-     return redirect(`/success?name=${name}`)
+     return redirect(`/success/${data.id}`)
+  }
+
+
+  export async function getUser(id:string | string[] | undefined){
+    try {
+      const user = await prisma.user.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      return user;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      return null;
+    }
   }

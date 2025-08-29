@@ -67,9 +67,7 @@ import { prisma } from "@/actions/db";
     httpOnly: true,
     path: '/',
     maxAge: 600, 
-  },
-  
-)
+  });
 
      return redirect(`/success?name=${name}`)
   }

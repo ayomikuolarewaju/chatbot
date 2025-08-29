@@ -70,11 +70,15 @@ import { prisma } from "@/actions/db";
 
   export async function getUser(id:string | string[] | undefined){
     try {
+
+      if (!id) return null;
+      const userId = Array.isArray(id) ? id[0] : id;
       const user = await prisma.user.findUnique({
         where: {
-          id: id,
+          id: userId,
         },
       });
+      
       return user;
     } catch (error) {
       console.error('Error fetching user:', error);
